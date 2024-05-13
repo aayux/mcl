@@ -278,6 +278,7 @@ bool NIZKVerify(const G1 pkC, const G2 pkI[3], niat_psig psig){
 void NIATClientKeyGen(Fr& skC, G1& pkC) {
     skC.setRand();
     G1::mul(pkC, P, skC);
+    Fr::inv(skC_inv, skC);
 }
 
 void NIATIssue(G2 pkI[3], niat_psig *psig, Fr skI[3], const G1& pkC, int b) {
@@ -503,7 +504,6 @@ int main() {
     EQKeyGen(skI, pkI); // is also Issuer KeyGen
     NIATClientKeyGen(skC, pkC);
     // pre-computations
-    Fr::inv(skC_inv, skC);
     pairing(eC, pkC, pkI[0]);
     pairing(eI, P, pkI[0]);
 
