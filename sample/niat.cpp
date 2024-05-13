@@ -423,8 +423,8 @@ void NIATObtain(niat_token *t, const Fr skC, const G1& pkC, G2 pkI[3], niat_psig
         throw std::runtime_error("ERR <NIATObtain>: cannot verify NIZK.");
     }
 
-    Fr alpha_inv;
-    Fr::inv(alpha_inv, skC);
+    Fr alpha_inv = skC_inv;
+    // Fr::inv(alpha_inv, skC);
 
     G1::mul(t->tag[0], Hr, alpha_inv);
     G1::mul(t->tag[1], psig.T, alpha_inv);
