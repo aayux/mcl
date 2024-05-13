@@ -28,6 +28,8 @@ G2 Q;   // generator g2 of G2
 // pre-computed pairings
 Fp12 eC, e_pkCm_pkI1m;  // Client
 G1 pkC_m;
+Fr skC_inv;
+
 Fp12 eI, e_g1n_pkI1n;   // Issuer
 
 struct eqsig {
@@ -501,6 +503,7 @@ int main() {
     EQKeyGen(skI, pkI); // is also Issuer KeyGen
     NIATClientKeyGen(skC, pkC);
     // pre-computations
+    Fr::inv(skC_inv, skC);
     pairing(eC, pkC, pkI[0]);
     pairing(eI, P, pkI[0]);
 
